@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Of Span</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div id ="login-area">
+        <h1 class="text-center">Welcome To Bank Of Spain</h1>
+    <div class="submit-are">
+        <h4>login</h4>
+        <input type="text" class="form-control" placeholder="Enter Your Email">
+        <br>
+        <input type="password" class="form-control" placeholder="Password">
+        <br>
+        <button id="login" class="btn btn-success">Enter</button>
+    </div>
+</div>
+<div class="container">
+    <div id="transaction">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="currentDeposit">00</span> </h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$ <span id="withdrawAmount">00</span> </h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="currentBalance">1240</span> </h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="submit-are">
+                        <h4>Deposit</h4>
+                        <input id="depositAmount" type="text" placeholder="$ Amount You Want Deposit" class="form-control">
+                        <br>
+                        <button id="depositBtn" class="btn btn-success">Deposit</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="submit-are">
+                        <h4>Withdraw</h4>
+                        <input id="withdrawNumber" type="text" placeholder="$ Amount You Want withdraw" class="form-control">
+                        <br>
+                        <button id="addWithdraw" class="btn btn-success">Withdraw</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        //Login Button Event Handler
+        const loginBtn = document.getElementById("login");
+        loginBtn.addEventListener("click", function() {
+            const loginArea = document.getElementById("login-area");
+            loginArea.style.display = "none";
+            const transArea = document.getElementById("transaction");
+            transArea.style.display = "block";
+        })
+        //deposit btn handler
+            const depositButton = document.getElementById("depositBtn");
+            depositButton.addEventListener("click",function(){
+
+                const depositNumber = getInputNumber ("depositAmount");
+
+            document.getElementById("depositAmount").value = "";
+            updateSpan("currentDeposit", depositNumber)
+            updateSpan("currentBalance",depositNumber)
+        })
+        //Withdraw Button Handler
+            const withdrawBtn = document.getElementById("addWithdraw");
+            withdrawBtn.addEventListener("click", function(){
+            const withdrawNumber = getInputNumber("withdrawNumber");
+            updateSpan("withdrawAmount", withdrawNumber);
+            updateSpan("currentBalance", -1*withdrawNumber);
+            document.getElementById("withdrawNumber").value = "";
+        })
+
+        function getInputNumber (id){
+                const Amount = document.getElementById(id).value;
+                const AmountNumber = parseFloat(Amount);
+                return AmountNumber;
+        }
+
+        function updateSpan (id, depositNumber){
+                const current = document.getElementById(id).innerText;
+                const currentNumber =parseFloat(current);
+                const totalAmount = depositNumber + currentNumber;
+                document.getElementById(id).innerText = totalAmount; 
+            }
+    </script>
+</body>
+</html>
